@@ -1,13 +1,19 @@
 import pygame
 
-#Initialize
 pygame.init()
 
-#Canvas
 gameDisplay = pygame.display.set_mode((800,600))
 
-#pygame.display.flip() Whole surface update
+#Title
+pygame.display.set_caption('Slither')
+
 pygame.display.update()
+
+gameExit = False
+
+while not gameExit:
+	for event in pygame.event.get():
+		print(event)
 
 pygame.quit()
 quit()
