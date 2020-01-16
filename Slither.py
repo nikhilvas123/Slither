@@ -27,6 +27,11 @@ while not gameExit:
 			if event.key == pygame.K_RIGHT:
 				lead_x_change = 10
 
+	# To Stop Moving the rectangle
+	#	if event.type == pygame.KEYUP:
+	#		if event.key == pygame.K_LEFT or pygame.K_RIGHT:
+	#			lead_x_change = 0
+
 	lead_x+= lead_x_change
 
 	gameDisplay.fill(white)
