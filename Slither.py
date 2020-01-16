@@ -1,4 +1,5 @@
 import pygame
+import time
 
 pygame.init()
 
@@ -20,7 +21,13 @@ lead_x_change = 0
 lead_y_change = 0
 
 block_size = 10
-FPS = 15
+FPS = 30
+
+font = pygame.font.SysFont(None,25)
+
+def message_to_screen(msg,color):
+	screen_text = font.render(msg,True,color)
+	gameDisplay.blit(screen_text,[display_width/2,display_height/2])
 
 clock = pygame.time.Clock()
 
@@ -57,7 +64,10 @@ while not gameExit:
 	pygame.draw.rect(gameDisplay,black,[lead_x,lead_y,block_size,block_size])
 	pygame.display.update()
 
-	clock.tick(15)
+	clock.tick(FPS)
 
+message_to_screen("You Lose",red)
+pygame.display.update()
+time.sleep(2)
 pygame.quit()
 quit()
