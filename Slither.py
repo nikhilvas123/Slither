@@ -6,6 +6,7 @@ pygame.init()
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)
+green = (0,155,0)
 
 display_width = 800
 display_height = 600
@@ -17,6 +18,9 @@ block_size = 10
 FPS = 30
 
 font = pygame.font.SysFont(None,25)
+
+def snake(lead_x,lead_y,):
+	pygame.draw.rect(gameDisplay,green,[lead_x,lead_y,block_size,block_size])
 
 def message_to_screen(msg,color):
 	screen_text = font.render(msg,True,color)
@@ -36,7 +40,6 @@ def gameLoop():
 
 	randAppleX = round(random.randrange(0,display_width-block_size)/block_size)*block_size
 	randAppleY = round(random.randrange(0,display_height-block_size)/block_size)*block_size
-	randAppleY-= randAppleY%block_size
 
 	while not gameExit:
 		while gameOver:
@@ -83,11 +86,12 @@ def gameLoop():
 
 		gameDisplay.fill(white)
 		pygame.draw.rect(gameDisplay,red,[randAppleX,randAppleY,block_size,block_size])
-		pygame.draw.rect(gameDisplay,black,[lead_x,lead_y,block_size,block_size])
+		snake(lead_x,lead_y)
 		pygame.display.update()
 
 		if lead_x == randAppleX and lead_y == randAppleY:
-			print("om nom nom")
+			randAppleX = round(random.randrange(0,display_width-block_size)/block_size)*block_size
+			randAppleY = round(random.randrange(0,display_height-block_size)/block_size)*block_size
 
 		clock.tick(FPS)
 
