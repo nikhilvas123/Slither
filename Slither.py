@@ -15,7 +15,7 @@ gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Slither')
 
 block_size = 20
-FPS = 30
+FPS = 15
 
 font = pygame.font.SysFont(None,25)
 
@@ -72,17 +72,22 @@ def gameLoop():
 
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT:
-					lead_x_change = -block_size
-					lead_y_change = 0
+					if len(snakeList) == 1 or lead_x_change != block_size: 
+						lead_x_change = -block_size
+						lead_y_change = 0
 				elif event.key == pygame.K_RIGHT:
-					lead_x_change = block_size
-					lead_y_change = 0
+					if len(snakeList) == 1 or lead_x_change != -block_size:
+						lead_x_change = block_size
+						lead_y_change = 0
+
 				elif event.key == pygame.K_UP:
-					lead_y_change = -block_size
-					lead_x_change = 0
+					if len(snakeList) == 1 or lead_y_change != block_size:
+						lead_y_change = -block_size
+						lead_x_change = 0
 				elif event.key == pygame.K_DOWN:
-					lead_y_change = block_size
-					lead_x_change = 0
+					if len(snakeList) == 1 or lead_y_change != -block_size:
+						lead_y_change = block_size
+						lead_x_change = 0
 
 		# To Stop Moving the rectangle
 		#	if event.type == pygame.KEYUP:
