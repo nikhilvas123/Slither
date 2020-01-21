@@ -23,9 +23,16 @@ def snake(snakeList):
 	for XnY in snakeList:
 		pygame.draw.rect(gameDisplay,green,[XnY[0],XnY[1],block_size,block_size])
 
+def text_objects(text,color):
+	textSurface = font.render(text,True,color)
+	return textSurface, textSurface.get_rect()
+
 def message_to_screen(msg,color):
-	screen_text = font.render(msg,True,color)
-	gameDisplay.blit(screen_text,[display_width/2,display_height/2])
+	textSurf, textRect = text_objects(msg,color)
+#	screen_text = font.render(msg,True,color)
+#	gameDisplay.blit(screen_text,[display_width/2,display_height/2])
+	textRect.center = (display_width/2), (display_height/2)
+	gameDisplay.blit(textSurf,textRect)
 
 clock = pygame.time.Clock()
 
