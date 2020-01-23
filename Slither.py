@@ -19,11 +19,25 @@ img = pygame.image.load('snakeHead.png')
 block_size = 20
 FPS = 15
 
+direcion = "right"
+
 font = pygame.font.SysFont(None,25)
 
 def snake(snakeList):
 
-	gameDisplay.blit(img,(snakeList[-1][0],snakeList[-1][1]))
+	if direcion=="right":
+		head = pygame.transform.rotate(img,270)
+
+	if direcion=="left":
+		head = pygame.transform.rotate(img,90)
+
+	if direcion=="up":
+		head = img;
+
+	if direcion=="down":
+		head = pygame.transform.rotate(img,180)
+
+	gameDisplay.blit(head,(snakeList[-1][0],snakeList[-1][1]))
 
 	for XnY in snakeList[:-1]:
 		pygame.draw.rect(gameDisplay,green,[XnY[0],XnY[1],block_size,block_size])
@@ -32,16 +46,17 @@ def text_objects(text,color):
 	textSurface = font.render(text,True,color)
 	return textSurface, textSurface.get_rect()
 
-def message_to_screen(msg,color):
+def message_to_screen(msg,color,y_disp=0):
 	textSurf, textRect = text_objects(msg,color)
 #	screen_text = font.render(msg,True,color)
 #	gameDisplay.blit(screen_text,[display_width/2,display_height/2])
-	textRect.center = (display_width/2), (display_height/2)
+	textRect.center = (display_width/2), (display_height/2)+y_disp
 	gameDisplay.blit(textSurf,textRect)
 
 clock = pygame.time.Clock()
 
 def gameLoop():
+	global direcion
 	gameOver = False
 	gameExit = False
 
@@ -53,7 +68,7 @@ def gameLoop():
 
 	AppleThickness = 30
 
-	lead_x_change = 0
+	lead_x_change = 10
 	lead_y_change = 0
 
 	randAppleX = round(random.randrange(0,display_width-AppleThickness))#/block_size)*block_size
@@ -62,7 +77,8 @@ def gameLoop():
 	while not gameExit:
 		while gameOver:
 			gameDisplay.fill(white)
-			message_to_screen("You Lose... Press Q to quit and R to restart",red)
+			message_to_screen("Game Over",red,-50)
+			message_to_screen("Press R to restart or Q to quit",black,50)
 			pygame.display.update()
 
 			for event in pygame.event.get():
@@ -87,19 +103,25 @@ def gameLoop():
 					if len(snakeList) == 1 or lead_x_change != block_size: 
 						lead_x_change = -block_size
 						lead_y_change = 0
+						direcion = "left"
+
 				elif event.key == pygame.K_RIGHT:
 					if len(snakeList) == 1 or lead_x_change != -block_size:
 						lead_x_change = block_size
 						lead_y_change = 0
+						direcion = "right"
 
 				elif event.key == pygame.K_UP:
 					if len(snakeList) == 1 or lead_y_change != block_size:
 						lead_y_change = -block_size
 						lead_x_change = 0
+						direcion = "up"
+
 				elif event.key == pygame.K_DOWN:
 					if len(snakeList) == 1 or lead_y_change != -block_size:
 						lead_y_change = block_size
 						lead_x_change = 0
+						direcion = "down"
 
 		# To Stop Moving the rectangle
 		#	if event.type == pygame.KEYUP:
