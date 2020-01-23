@@ -14,6 +14,9 @@ display_height = 600
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Slither')
 
+icon = pygame.image.load("apple.png")
+pygame.display.set_icon(icon)
+
 img = pygame.image.load('snakeHead.png')
 apple = pygame.image.load('apple.png')
 
