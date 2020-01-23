@@ -15,6 +15,7 @@ gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Slither')
 
 img = pygame.image.load('snakeHead.png')
+apple = pygame.image.load('apple.png')
 
 block_size = 20
 FPS = 15
@@ -24,6 +25,8 @@ direcion = "right"
 smallfont = pygame.font.SysFont("brookeshappell8",25)
 mediumfont = pygame.font.SysFont("brookeshappell8",50)
 largefont = pygame.font.SysFont("brookeshappell8",80)
+
+clock = pygame.time.Clock()
 
 def game_intro():
 
@@ -53,7 +56,7 @@ def game_intro():
 
 		pygame.display.update()
 
-		pygame.clock.tick(FPS)
+		clock.tick(FPS)
 
 def snake(snakeList):
 
@@ -89,10 +92,9 @@ def message_to_screen(msg,color,y_disp=0,size="small"):
 	textRect.center = (display_width/2), (display_height/2)+y_disp
 	gameDisplay.blit(textSurf,textRect)
 
-clock = pygame.time.Clock()
-
 def gameLoop():
 	global direcion
+	direcion = "right"
 	gameOver = False
 	gameExit = False
 
@@ -170,7 +172,8 @@ def gameLoop():
 		lead_y+= lead_y_change
 
 		gameDisplay.fill(white)
-		pygame.draw.rect(gameDisplay,red,[randAppleX,randAppleY,AppleThickness,AppleThickness])
+#		pygame.draw.rect(gameDisplay,red,[randAppleX,randAppleY,AppleThickness,AppleThickness])
+		gameDisplay.blit(apple,(randAppleX,randAppleY))
 
 		snakeHead = []
 		snakeHead.append(lead_x)
