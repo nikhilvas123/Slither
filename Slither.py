@@ -25,6 +25,36 @@ smallfont = pygame.font.SysFont("brookeshappell8",25)
 mediumfont = pygame.font.SysFont("brookeshappell8",50)
 largefont = pygame.font.SysFont("brookeshappell8",80)
 
+def game_intro():
+
+	intro = True
+
+	while intro:
+
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_c:
+					intro = False
+
+				if event.key == pygame.K_q:
+					pygame.quit()
+					quit()
+
+		gameDisplay.fill(white)
+		message_to_screen("Welcome to Slither",green,-100,"large")
+		message_to_screen("The objective of the game is to eat red apples",black,-70)
+		message_to_screen("The more apples you eat, the longer you get",black,-50)
+		message_to_screen("If you run into yourself, or the edges, you die!",black,-30)
+		message_to_screen("Press C to start or Q to quit",black,y_disp=-10)
+
+		pygame.display.update()
+
+		pygame.clock.tick(FPS)
+
 def snake(snakeList):
 
 	if direcion=="right":
@@ -84,7 +114,7 @@ def gameLoop():
 		while gameOver:
 			gameDisplay.fill(white)
 			message_to_screen("Game Over",red,y_disp=-50,size="large")
-			message_to_screen("Press R to restart or Q to quit",black,y_disp=50,size="medium")
+			message_to_screen("Press C to restart or Q to quit",black,y_disp=50,size="medium")
 			pygame.display.update()
 
 			for event in pygame.event.get():
@@ -97,7 +127,7 @@ def gameLoop():
 						gameExit = True
 						gameOver = False
 
-					elif event.key == pygame.K_r:
+					elif event.key == pygame.K_c:
 						gameLoop()
 
 		for event in pygame.event.get():
@@ -174,4 +204,5 @@ def gameLoop():
 	pygame.quit()
 	quit()
 
+game_intro()
 gameLoop()
