@@ -20,6 +20,7 @@ pygame.display.set_icon(icon)
 img = pygame.image.load('snakeHead.png')
 apple = pygame.image.load('apple.png')
 
+AppleThickness = 30
 block_size = 20
 FPS = 15
 
@@ -30,6 +31,11 @@ mediumfont = pygame.font.SysFont("brookeshappell8",50)
 largefont = pygame.font.SysFont("brookeshappell8",80)
 
 clock = pygame.time.Clock()
+
+def randAppleGen():
+	randAppleX = round(random.randrange(0,display_width-AppleThickness))#/block_size)*block_size
+	randAppleY = round(random.randrange(0,display_height-AppleThickness))#/block_size)*block_size
+	return randAppleX,randAppleY
 
 def game_intro():
 
@@ -107,13 +113,10 @@ def gameLoop():
 	snakeList = []
 	snakeLength = 1
 
-	AppleThickness = 30
-
 	lead_x_change = 10
 	lead_y_change = 0
 
-	randAppleX = round(random.randrange(0,display_width-AppleThickness))#/block_size)*block_size
-	randAppleY = round(random.randrange(0,display_height-AppleThickness))#/block_size)*block_size
+	randAppleX,randAppleY = randAppleGen()
 
 	while not gameExit:
 		while gameOver:
@@ -201,8 +204,7 @@ def gameLoop():
 	
 		if lead_x > randAppleX and lead_x <randAppleX + AppleThickness or lead_x + block_size > randAppleX and lead_x + block_size < randAppleX + AppleThickness:
 			if lead_y > randAppleY and lead_y <randAppleY + AppleThickness or lead_y + block_size > randAppleY and lead_y + block_size < randAppleY + AppleThickness:
-				randAppleX = round(random.randrange(0,display_width-AppleThickness))#/block_size)*block_size
-				randAppleY = round(random.randrange(0,display_height-AppleThickness))#/block_size)*block_size
+				randAppleX,randAppleY = randAppleGen()
 				snakeLength+= 1
 
 		clock.tick(FPS)
