@@ -32,6 +32,33 @@ largefont = pygame.font.SysFont("brookeshappell8",80)
 
 clock = pygame.time.Clock()
 
+def pause():
+	paused = True
+
+	while paused:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_q:
+					pygame.quit()
+					quit()
+
+				elif event.key == pygame.K_c:
+					paused = False
+
+		gameDisplay.fill(white)
+
+		message_to_screen("Game Paused",black,-200,size="large")
+		message_to_screen("Press C to continue or Q to quit",black,-50)
+
+		pygame.display.update()
+
+		clock.tick(15)
+
+
 def score(score):
 	text = smallfont.render("Score: "+str(score),True,black)
 	gameDisplay.blit(text,[0,0]);
@@ -62,10 +89,10 @@ def game_intro():
 
 		gameDisplay.fill(white)
 		message_to_screen("Welcome to Slither",green,-100,"large")
-		message_to_screen("The objective of the game is to eat red apples",black,-70)
-		message_to_screen("The more apples you eat, the longer you get",black,-50)
-		message_to_screen("If you run into yourself, or the edges, you die!",black,-30)
-		message_to_screen("Press C to start or Q to quit",black,y_disp=-10)
+		message_to_screen("The objective of the game is to eat red apples",black,-60)
+		message_to_screen("The more apples you eat, the longer you get",black,-30)
+		message_to_screen("If you run into yourself, or the edges, you die!",black,)
+		message_to_screen("Press C to start or Q to quit or P to pause",black,y_disp=+30)
 
 		pygame.display.update()
 
@@ -170,6 +197,9 @@ def gameLoop():
 						lead_y_change = block_size
 						lead_x_change = 0
 						direcion = "down"
+
+				elif event.key == pygame.K_p:
+					pause()
 
 		# To Stop Moving the rectangle
 		#	if event.type == pygame.KEYUP:
