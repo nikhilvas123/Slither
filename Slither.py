@@ -32,6 +32,10 @@ largefont = pygame.font.SysFont("brookeshappell8",80)
 
 clock = pygame.time.Clock()
 
+def score(score):
+	text = smallfont.render("Score: "+str(score),True,black)
+	gameDisplay.blit(text,[0,0]);
+
 def randAppleGen():
 	randAppleX = round(random.randrange(0,display_width-AppleThickness))#/block_size)*block_size
 	randAppleY = round(random.randrange(0,display_height-AppleThickness))#/block_size)*block_size
@@ -113,7 +117,7 @@ def gameLoop():
 	snakeList = []
 	snakeLength = 1
 
-	lead_x_change = 10
+	lead_x_change = 20
 	lead_y_change = 0
 
 	randAppleX,randAppleY = randAppleGen()
@@ -194,6 +198,9 @@ def gameLoop():
 				gameOver = True	
 
 		snake(snakeList)
+
+		score(snakeLength-1)
+
 		pygame.display.update()
 
 #		if lead_x >= randAppleX and lead_x <= randAppleX+AppleThickness:
